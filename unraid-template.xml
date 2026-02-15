@@ -7,12 +7,12 @@
   <MyIP/>
   <Shell>bash</Shell>
   <Privileged>false</Privileged>
-  <Support>https://github.com/yourusername/copilot-cli-docker</Support>
+  <Support>https://github.com/zeddius1983/copilot-cli-docker</Support>
   <Project>https://githubnext.com/projects/copilot-cli/</Project>
   <Overview>GitHub Copilot CLI in a Docker container with persistent authentication. Access the AI-powered command line assistant from your terminal with automatic authentication persistence across container restarts.</Overview>
   <Category>Tools: Status:Stable</Category>
   <WebUI/>
-  <TemplateURL>https://raw.githubusercontent.com/yourusername/copilot-cli-docker/main/unraid-template.xml</TemplateURL>
+  <TemplateURL>https://raw.githubusercontent.com/zeddius1983/copilot-cli-docker/main/unraid-template.xml</TemplateURL>
   <Icon>https://raw.githubusercontent.com/github/explore/main/topics/github-copilot/github-copilot.png</Icon>
   <ExtraParams>-it</ExtraParams>
   <PostArgs/>
