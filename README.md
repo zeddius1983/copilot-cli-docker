@@ -47,17 +47,21 @@ Follow the prompts:
 5. Copy the one-time code shown
 6. Open the URL in your browser and paste the code
 
-Then authenticate Copilot CLI:
+Then install GitHub Copilot extension:
 
 ```bash
-# Authenticate Copilot CLI
-github-copilot-cli auth
+# Install Copilot CLI extension
+gh extension install github/gh-copilot
 ```
 
 ### 5. Use Copilot CLI
 
 ```bash
-github-copilot-cli
+# Get command suggestions
+gh copilot suggest "install docker"
+
+# Explain a command
+gh copilot explain "tar -xzf file.tar.gz"
 ```
 
 ## Unraid Installation
@@ -139,7 +143,7 @@ These volumes persist across container restarts, so you only need to authenticat
 If authentication is lost, re-run:
 ```bash
 gh auth login
-github-copilot-cli auth
+gh extension install github/gh-copilot
 ```
 
 ### Permission Issues
@@ -169,7 +173,7 @@ echo "your-token" | gh auth login --with-token
 ### Running Commands Directly
 
 ```bash
-docker exec -it copilot-cli github-copilot-cli
+docker exec -it copilot-cli gh copilot suggest "your question"
 ```
 
 ## License

@@ -24,22 +24,22 @@ else
     echo "  github-copilot-cli auth"
 fi
 
-# Check if Copilot CLI is authenticated
-if [ -d "/root/.copilot" ] && [ "$(ls -A /root/.copilot)" ]; then
-    echo "✓ Copilot CLI configuration found"
+# Check if Copilot extension is available
+if gh copilot --version &>/dev/null; then
+    echo "✓ GitHub Copilot extension is available"
 else
-    echo "⚠ Copilot CLI not configured"
+    echo "⚠ GitHub Copilot extension not found"
     echo ""
-    echo "After authenticating GitHub CLI, run:"
-    echo "  github-copilot-cli auth"
+    echo "After authenticating GitHub CLI, install Copilot extension:"
+    echo "  gh extension install github/gh-copilot"
 fi
 
 echo ""
 echo "================================================"
 echo "  Available commands:"
-echo "    github-copilot-cli    - Start Copilot CLI"
-echo "    gh auth login         - Authenticate GitHub"
-echo "    github-copilot-cli auth - Authenticate Copilot"
+echo "    gh copilot suggest   - Get command suggestions"
+echo "    gh copilot explain   - Explain a command"
+echo "    gh auth login        - Authenticate GitHub"
 echo "================================================"
 echo ""
 

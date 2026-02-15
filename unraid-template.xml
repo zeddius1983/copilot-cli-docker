@@ -25,7 +25,7 @@
     1. Build the image: docker build -t copilot-cli:latest /path/to/dockerfile
     2. Start the container
     3. Access console and run: gh auth login
-    4. Then run: github-copilot-cli auth
+    4. Then run: gh extension install github/gh-copilot
   </Requires>
   <Config Name="GitHub CLI Config" Target="/root/.config/gh" Default="/mnt/user/appdata/copilot-cli/gh" Mode="rw" Description="Persistent storage for GitHub CLI authentication. Required for maintaining login across container restarts." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/copilot-cli/gh</Config>
   <Config Name="Copilot CLI Config" Target="/root/.copilot" Default="/mnt/user/appdata/copilot-cli/copilot" Mode="rw" Description="Persistent storage for GitHub Copilot CLI configuration and session data." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/copilot-cli/copilot</Config>
