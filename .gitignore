@@ -1,0 +1,16 @@
+# Docker
+.env
+docker-compose.override.yml
+
+# SSH keys
+ssh/
+*.pem
+*.key
+
+# Volumes (if using bind mounts)
+data/
+config/
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  copilot-cli:
+    build: .
+    image: copilot-cli:latest
+    container_name: copilot-cli
+    stdin_open: true
+    tty: true
+    environment:
+      # Optional: Enable SSH server for remote access
+      - ENABLE_SSH=false
+      # Optional: Set SSH password (only if ENABLE_SSH=true)
+      # - SSH_PASSWORD=yourpassword
+    volumes:
+      # Persist GitHub CLI authentication
+      - gh-config:/root/.config/gh
+      # Persist Copilot CLI configuration
+      - copilot-config:/root/.copilot
+      # Optional: Mount SSH keys for authentication
+      # - ./ssh:/root/.ssh:ro
+    ports:
+      # Optional: Expose SSH port (only if ENABLE_SSH=true)
+      # - "2222:22"
+    restart: unless-stopped
+    command: /bin/bash
+
+volumes:
+  gh-config:
+  copilot-config:

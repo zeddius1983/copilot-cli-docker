@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>copilot-cli</Name>
+  <Repository>copilot-cli:latest</Repository>
+  <Registry>local</Registry>
+  <Network>bridge</Network>
+  <MyIP/>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+  <Support>https://github.com/yourusername/copilot-cli-docker</Support>
+  <Project>https://githubnext.com/projects/copilot-cli/</Project>
+  <Overview>GitHub Copilot CLI in a Docker container with persistent authentication. Access the AI-powered command line assistant from your terminal with automatic authentication persistence across container restarts.</Overview>
+  <Category>Tools: Status:Stable</Category>
+  <WebUI/>
+  <TemplateURL>https://raw.githubusercontent.com/yourusername/copilot-cli-docker/main/unraid-template.xml</TemplateURL>
+  <Icon>https://raw.githubusercontent.com/github/explore/main/topics/github-copilot/github-copilot.png</Icon>
+  <ExtraParams>-it</ExtraParams>
+  <PostArgs/>
+  <CPUset/>
+  <DateInstalled/>
+  <DonateText/>
+  <DonateLink/>
+  <Requires>
+    First time setup:
+    1. Build the image: docker build -t copilot-cli:latest /path/to/dockerfile
+    2. Start the container
+    3. Access console and run: gh auth login
+    4. Then run: github-copilot-cli auth
+  </Requires>
+  <Config Name="GitHub CLI Config" Target="/root/.config/gh" Default="/mnt/user/appdata/copilot-cli/gh" Mode="rw" Description="Persistent storage for GitHub CLI authentication. Required for maintaining login across container restarts." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/copilot-cli/gh</Config>
+  <Config Name="Copilot CLI Config" Target="/root/.copilot" Default="/mnt/user/appdata/copilot-cli/copilot" Mode="rw" Description="Persistent storage for GitHub Copilot CLI configuration and session data." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/copilot-cli/copilot</Config>
+  <Config Name="SSH Keys (Optional)" Target="/root/.ssh" Default="" Mode="ro" Description="Optional: Mount your SSH keys directory for Git operations. Leave empty if not needed." Type="Path" Display="advanced" Required="false" Mask="false"></Config>
+  <Config Name="Enable SSH Server" Target="ENABLE_SSH" Default="false" Mode="" Description="Set to 'true' to enable SSH server for remote access to the container." Type="Variable" Display="advanced" Required="false" Mask="false">false</Config>
+  <Config Name="SSH Password" Target="SSH_PASSWORD" Default="" Mode="" Description="Password for SSH access (only used if Enable SSH Server is true). Leave empty to disable password auth." Type="Variable" Display="advanced" Required="false" Mask="true"></Config>
+  <Config Name="SSH Port" Target="22" Default="" Mode="tcp" Description="SSH port for remote access (only needed if Enable SSH Server is true)." Type="Port" Display="advanced" Required="false" Mask="false"></Config>
+</Container>

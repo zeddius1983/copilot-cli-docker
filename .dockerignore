@@ -1,0 +1,9 @@
+README.md
+.git
+.gitignore
+docker-compose.yml
+*.md
+.env
+ssh/
+data/
+config/
