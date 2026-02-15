@@ -52,14 +52,14 @@
    - Open the URL in your browser
    - Paste the code and authorize
 
-3. Authenticate Copilot CLI:
+3. Install GitHub Copilot extension:
    ```bash
-   github-copilot-cli auth
+   gh extension install github/gh-copilot
    ```
 
 4. Test it:
    ```bash
-   github-copilot-cli
+   gh copilot suggest "list docker containers"
    ```
 
 ## Method 2: Manual Docker Template Setup
@@ -129,10 +129,10 @@ To access Copilot CLI remotely via SSH:
 - Ensure image was built: `docker images | grep copilot-cli`
 
 ### Authentication Failed
-- Re-run authentication inside container console:
+- Re-authenticate inside container console:
   ```bash
-  gh auth login
-  github-copilot-cli auth
+  github-copilot-cli
+  # Then type: /login
   ```
 
 ### Can't Access Console

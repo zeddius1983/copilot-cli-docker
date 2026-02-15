@@ -32,32 +32,41 @@ docker exec -it copilot-cli /bin/bash
 
 ### 4. Authenticate (First Time Only)
 
-Once inside the container, authenticate with GitHub:
+Once inside the container, run Copilot CLI:
 
 ```bash
-# Authenticate GitHub CLI
-gh auth login
+github-copilot-cli
 ```
 
-Follow the prompts:
-1. Select **GitHub.com**
-2. Choose **HTTPS** protocol
-3. **Yes** to authenticate Git with GitHub credentials
-4. **Login with a web browser**
-5. Copy the one-time code shown
-6. Open the URL in your browser and paste the code
-
-Then authenticate Copilot CLI:
-
-```bash
-# Authenticate Copilot CLI
-github-copilot-cli auth
+On first launch, you'll be prompted to authenticate. Enter:
 ```
+/login
+```
+
+Follow the on-screen instructions:
+1. A one-time code will be displayed
+2. Open the provided URL in your browser
+3. Enter the code and authorize
+
+**Alternative: Using a Personal Access Token**
+
+You can authenticate using a fine-grained PAT:
+1. Create a token at https://github.com/settings/personal-access-tokens/new
+2. Enable **Copilot Requests** permission
+3. Set as environment variable in docker-compose.yml:
+   ```yaml
+   environment:
+     - GH_TOKEN=your_token_here
+   ```
 
 ### 5. Use Copilot CLI
 
 ```bash
+# Interactive session
 github-copilot-cli
+
+# Direct question
+github-copilot-cli "how do I list docker containers"
 ```
 
 ## Unraid Installation
@@ -99,6 +108,7 @@ docker build -t copilot-cli:latest .
 
 - `ENABLE_SSH`: Set to `true` to enable SSH server (default: `false`)
 - `SSH_PASSWORD`: Root password for SSH access (only if ENABLE_SSH=true)
+- `GH_TOKEN` or `GITHUB_TOKEN`: GitHub personal access token for authentication (optional)
 
 ### SSH Access (Optional)
 
@@ -136,10 +146,10 @@ These volumes persist across container restarts, so you only need to authenticat
 
 ### Authentication Lost
 
-If authentication is lost, re-run:
+If authentication is lost, re-run inside the CLI:
 ```bash
-gh auth login
-github-copilot-cli auth
+github-copilot-cli
+# Then use: /login
 ```
 
 ### Permission Issues
@@ -169,7 +179,7 @@ echo "your-token" | gh auth login --with-token
 ### Running Commands Directly
 
 ```bash
-docker exec -it copilot-cli github-copilot-cli
+docker exec -it copilot-cli github-copilot-cli "your question"
 ```
 
 ## License
