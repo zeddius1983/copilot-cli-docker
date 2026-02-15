@@ -8,13 +8,15 @@ services:
     stdin_open: true
     tty: true
     environment:
+      # Copilot CLI version (e.g., v0.0.410 or "latest")
+      - COPILOT_VERSION=latest
+      # Optional: GitHub Personal Access Token for authentication
+      # - GH_TOKEN=your_token_here
       # Optional: Enable SSH server for remote access
       - ENABLE_SSH=false
       # Optional: Set SSH password (only if ENABLE_SSH=true)
       # - SSH_PASSWORD=yourpassword
     volumes:
-      # Persist GitHub CLI authentication
-      - gh-config:/root/.config/gh
       # Persist Copilot CLI configuration
       - copilot-config:/root/.copilot
       # Optional: Mount SSH keys for authentication
@@ -26,5 +28,4 @@ services:
     command: /bin/bash
 
 volumes:
-  gh-config:
   copilot-config:

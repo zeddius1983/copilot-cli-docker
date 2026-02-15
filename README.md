@@ -4,11 +4,13 @@ A Docker container packaging GitHub Copilot CLI with persistent authentication f
 
 ## Features
 
-- 🚀 GitHub Copilot CLI pre-installed
-- 🔐 Persistent authentication via Docker volumes
-- 🔄 Automatic configuration on startup
-- 🖥️ Optional SSH access for remote usage
-- 📦 Easy deployment with docker-compose
+- 🚀 **GitHub Copilot CLI** installed via official script at runtime
+- 🔐 **Persistent authentication** via Docker volumes
+- 🔄 **Automatic configuration** on startup
+- 🖥️ **Optional SSH access** for remote usage
+- 📦 **Easy deployment** with docker-compose
+- 🔢 **Version pinning** support via COPILOT_VERSION environment variable
+- 🔄 **No rebuild needed** - change version and restart container
 
 ## Quick Start
 
@@ -17,6 +19,8 @@ A Docker container packaging GitHub Copilot CLI with persistent authentication f
 ```bash
 docker-compose build
 ```
+
+The Copilot CLI will be installed at container startup, not during build. This allows you to change versions without rebuilding!
 
 ### 2. Start the Container
 
@@ -35,7 +39,7 @@ docker exec -it copilot-cli /bin/bash
 Once inside the container, run Copilot CLI:
 
 ```bash
-github-copilot-cli
+copilot
 ```
 
 On first launch, you'll be prompted to authenticate. Enter:
@@ -58,15 +62,16 @@ You can authenticate using a fine-grained PAT:
    environment:
      - GH_TOKEN=your_token_here
    ```
+4. Restart the container - Copilot will automatically use the token
 
 ### 5. Use Copilot CLI
 
 ```bash
 # Interactive session
-github-copilot-cli
+copilot
 
 # Direct question
-github-copilot-cli "how do I list docker containers"
+copilot "how do I list docker containers"
 ```
 
 ## Unraid Installation
@@ -90,8 +95,11 @@ Repository: copilot-cli:latest
 Console shell command: /bin/bash
 
 Volume Mappings:
-  - /mnt/user/appdata/copilot-cli/gh -> /root/.config/gh
   - /mnt/user/appdata/copilot-cli/copilot -> /root/.copilot
+
+Environment Variables:
+  - COPILOT_VERSION=latest (or v0.0.410 for specific version)
+  - GH_TOKEN=your_token_here (optional, for automatic auth)
 
 Extra Parameters: -it
 ```
@@ -102,13 +110,16 @@ cd /mnt/user/appdata/copilot-cli-docker
 docker build -t copilot-cli:latest .
 ```
 
+**Note:** No need to rebuild when changing versions - just update COPILOT_VERSION and restart!
+
 ## Configuration Options
 
 ### Environment Variables
 
+- `COPILOT_VERSION`: Copilot CLI version to install (e.g., `v0.0.410` or `latest`). Changes take effect on container restart.
+- `GH_TOKEN` or `GITHUB_TOKEN`: GitHub personal access token for authentication (optional)
 - `ENABLE_SSH`: Set to `true` to enable SSH server (default: `false`)
 - `SSH_PASSWORD`: Root password for SSH access (only if ENABLE_SSH=true)
-- `GH_TOKEN` or `GITHUB_TOKEN`: GitHub personal access token for authentication (optional)
 
 ### SSH Access (Optional)
 
@@ -136,11 +147,12 @@ ssh root@your-unraid-ip -p 2222
 
 ## Volume Persistence
 
-Authentication is stored in Docker volumes:
-- `gh-config`: GitHub CLI credentials (`/root/.config/gh`)
+Authentication is stored in Docker volume:
 - `copilot-config`: Copilot CLI configuration (`/root/.copilot`)
 
-These volumes persist across container restarts, so you only need to authenticate once.
+If using GH_TOKEN environment variable, authentication happens automatically each time.
+
+These volumes persist across container restarts, so you only need to authenticate once (unless using token-based auth).
 
 ## Troubleshooting
 
@@ -148,15 +160,17 @@ These volumes persist across container restarts, so you only need to authenticat
 
 If authentication is lost, re-run inside the CLI:
 ```bash
-github-copilot-cli
+copilot
 # Then use: /login
 ```
+
+Or set `GH_TOKEN` environment variable in container settings.
 
 ### Permission Issues
 
 Ensure volumes have correct permissions:
 ```bash
-docker exec -it copilot-cli chown -R root:root /root/.config/gh /root/.copilot
+docker exec -it copilot-cli chown -R root:root /root/.copilot
 ```
 
 ### Container Won't Start
@@ -166,27 +180,47 @@ Check logs:
 docker-compose logs copilot-cli
 ```
 
+### Version Not Installing
+
+If a specific version isn't installing, check:
+1. The version exists: https://github.com/github/copilot-cli/releases
+2. Container logs for errors
+3. Try setting to `latest` first
+
 ## Advanced Usage
+
+### Changing Versions
+
+To change Copilot CLI version:
+1. Edit `COPILOT_VERSION` in docker-compose.yml or Unraid template
+2. Restart the container
+3. The entrypoint will automatically install/update to the new version
 
 ### Custom GitHub Token
 
 You can use a GitHub Personal Access Token:
 
+Set in docker-compose.yml:
+```yaml
+environment:
+  - GH_TOKEN=your_token_here
+```
+
+Or as environment variable when running:
 ```bash
-echo "your-token" | gh auth login --with-token
+docker run -e GH_TOKEN=your_token copilot-cli
 ```
 
 ### Running Commands Directly
 
 ```bash
-docker exec -it copilot-cli github-copilot-cli "your question"
+docker exec -it copilot-cli copilot "your question"
 ```
 
 ## License
 
 This project packages open-source tools. Please refer to individual tool licenses:
-- [GitHub CLI](https://github.com/cli/cli)
-- [GitHub Copilot CLI](https://githubnext.com/projects/copilot-cli/)
+- [GitHub Copilot CLI](https://docs.github.com/en/copilot/using-github-copilot/using-github-copilot-in-the-cli)
 
 ## Support
 
