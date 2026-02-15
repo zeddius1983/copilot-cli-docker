@@ -5,22 +5,54 @@ echo "================================================"
 echo "  GitHub Copilot CLI Docker Container"
 echo "================================================"
 
-# Check if Copilot CLI is available
-if github-copilot-cli --version &>/dev/null; then
-    echo "✓ GitHub Copilot CLI is installed"
-    
-    # Check if authenticated (will prompt on first run)
-    echo ""
-    echo "On first use, you'll be prompted to authenticate."
-    echo "Use the /login command when prompted."
+# Set PREFIX for install script
+export PREFIX=/usr/local
+
+# Check if Copilot CLI needs to be installed or updated
+INSTALLED_VERSION=""
+if command -v copilot &>/dev/null; then
+    INSTALLED_VERSION=$(copilot --version 2>/dev/null | grep -oP 'v\d+\.\d+\.\d+' || echo "")
+fi
+
+REQUESTED_VERSION="${COPILOT_VERSION:-latest}"
+
+# Install or update Copilot CLI if needed
+if [ -z "$INSTALLED_VERSION" ]; then
+    echo "Installing GitHub Copilot CLI..."
+    if [ "$REQUESTED_VERSION" != "latest" ] && [ -n "$REQUESTED_VERSION" ]; then
+        wget -qO- https://gh.io/copilot-install | VERSION="$REQUESTED_VERSION" bash
+    else
+        wget -qO- https://gh.io/copilot-install | bash
+    fi
+    echo "✓ GitHub Copilot CLI installed"
+elif [ "$REQUESTED_VERSION" != "latest" ] && [ "$REQUESTED_VERSION" != "$INSTALLED_VERSION" ]; then
+    echo "Updating GitHub Copilot CLI from $INSTALLED_VERSION to $REQUESTED_VERSION..."
+    wget -qO- https://gh.io/copilot-install | VERSION="$REQUESTED_VERSION" bash
+    echo "✓ GitHub Copilot CLI updated"
 else
-    echo "⚠ GitHub Copilot CLI not found"
+    echo "✓ GitHub Copilot CLI is installed"
+fi
+
+# Display version
+if copilot --version &>/dev/null; then
+    copilot --version
+    
+    # Check if GH_TOKEN is set
+    if [ -n "$GH_TOKEN" ] || [ -n "$GITHUB_TOKEN" ]; then
+        echo "✓ GitHub token environment variable is set"
+    else
+        echo ""
+        echo "On first use, you'll be prompted to authenticate."
+        echo "Use the /login command when prompted."
+    fi
+else
+    echo "⚠ GitHub Copilot CLI installation failed"
 fi
 
 echo ""
 echo "================================================"
 echo "  Available commands:"
-echo "    github-copilot-cli   - Start Copilot session"
+echo "    copilot              - Start Copilot session"
 echo ""
 echo "  Authentication:"
 echo "    Use /login inside the CLI session"

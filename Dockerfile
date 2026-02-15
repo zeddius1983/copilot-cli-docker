@@ -1,19 +1,12 @@
-FROM node:22-alpine
+FROM node:24-slim
 
-# Install required packages
-RUN apk add --no-cache \
-    bash \
-    git \
-    openssh-server \
-    curl \
-    wget \
-    && rm -rf /var/cache/apk/*
-
-# Install GitHub Copilot CLI via npm (requires Node.js 22+)
-RUN npm install -g @github/copilot
+# Tools the install script expects / commonly needed
+RUN apt-get update \
+  && apt-get install -y --no-install-recommends bash wget ca-certificates git openssh-server \
+  && rm -rf /var/lib/apt/lists/*
 
 # Create necessary directories
-RUN mkdir -p /root/.config/gh /root/.copilot /root/.ssh
+RUN mkdir -p /root/.copilot /root/.ssh /usr/local/bin
 
 # Copy entrypoint script
 COPY scripts/entrypoint.sh /entrypoint.sh
