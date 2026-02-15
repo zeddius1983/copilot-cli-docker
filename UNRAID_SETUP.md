@@ -129,10 +129,10 @@ To access Copilot CLI remotely via SSH:
 - Ensure image was built: `docker images | grep copilot-cli`
 
 ### Authentication Failed
-- Re-run authentication inside container console:
+- Re-authenticate inside container console:
   ```bash
-  gh auth login
-  gh extension install github/gh-copilot
+  github-copilot-cli
+  # Then type: /login
   ```
 
 ### Can't Access Console

@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:22-alpine
 
 # Install required packages
 RUN apk add --no-cache \
@@ -6,13 +6,11 @@ RUN apk add --no-cache \
     git \
     openssh-server \
     curl \
+    wget \
     && rm -rf /var/cache/apk/*
 
-# Install GitHub CLI
-RUN apk add github-cli --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community
-
-# GitHub Copilot is now integrated into GitHub CLI
-# No separate npm package needed - use 'gh copilot' commands
+# Install GitHub Copilot CLI via npm (requires Node.js 22+)
+RUN npm install -g @github/copilot
 
 # Create necessary directories
 RUN mkdir -p /root/.config/gh /root/.copilot /root/.ssh
