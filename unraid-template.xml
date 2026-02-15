@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Container version="2">
   <Name>copilot-cli</Name>
-  <Repository>ghcr.io/zeddius1983/copilot-cli-docker:latest</Repository>
+  <Repository>ghcr.io/zeddius1983/copilot-cli:latest</Repository>
   <Registry>https://ghcr.io</Registry>
   <Network>bridge</Network>
   <MyIP/>

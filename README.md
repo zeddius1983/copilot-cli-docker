@@ -18,7 +18,7 @@ A Docker container packaging GitHub Copilot CLI with persistent authentication f
 
 **Option A: Pull from GitHub Container Registry**
 ```bash
-docker pull ghcr.io/zeddius1983/copilot-cli-docker:latest
+docker pull ghcr.io/zeddius1983/copilot-cli:latest
 ```
 
 **Option B: Build locally**
@@ -97,7 +97,7 @@ copilot "how do I list docker containers"
 
 ```
 Name: copilot-cli
-Repository: ghcr.io/zeddius1983/copilot-cli-docker:latest
+Repository: ghcr.io/zeddius1983/copilot-cli:latest
 Console shell command: /bin/bash
 
 Volume Mappings:

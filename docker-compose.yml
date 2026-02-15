@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   copilot-cli:
-    image: ghcr.io/zeddius1983/copilot-cli-docker:latest
+    image: ghcr.io/zeddius1983/copilot-cli:latest
     # Or build locally:
     # build: .
     container_name: copilot-cli

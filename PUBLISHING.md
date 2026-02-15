@@ -6,10 +6,10 @@ This project automatically publishes Docker images to GitHub Container Registry 
 
 Images are available at:
 ```
-ghcr.io/zeddius1983/copilot-cli-docker:latest
-ghcr.io/zeddius1983/copilot-cli-docker:v1.0.0
-ghcr.io/zeddius1983/copilot-cli-docker:1.0
-ghcr.io/zeddius1983/copilot-cli-docker:1
+ghcr.io/zeddius1983/copilot-cli:latest
+ghcr.io/zeddius1983/copilot-cli:v1.0.0
+ghcr.io/zeddius1983/copilot-cli:1.0
+ghcr.io/zeddius1983/copilot-cli:1
 ```
 
 ## How It Works
@@ -52,11 +52,11 @@ The GitHub Action will automatically:
 To build locally:
 
 ```bash
-docker build -t ghcr.io/zeddius1983/copilot-cli-docker:latest .
+docker build -t ghcr.io/zeddius1983/copilot-cli:latest .
 ```
 
 For multi-platform:
 
 ```bash
-docker buildx build --platform linux/amd64,linux/arm64 -t ghcr.io/zeddius1983/copilot-cli-docker:latest .
+docker buildx build --platform linux/amd64,linux/arm64 -t ghcr.io/zeddius1983/copilot-cli:latest .
 ```
