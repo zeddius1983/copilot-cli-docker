@@ -14,8 +14,14 @@ A Docker container packaging GitHub Copilot CLI with persistent authentication f
 
 ## Quick Start
 
-### 1. Build the Image
+### 1. Pull the Image (or Build Locally)
 
+**Option A: Pull from GitHub Container Registry**
+```bash
+docker pull ghcr.io/zeddius1983/copilot-cli-docker:latest
+```
+
+**Option B: Build locally**
 ```bash
 docker-compose build
 ```
@@ -80,7 +86,7 @@ copilot "how do I list docker containers"
 
 1. **Install Compose Manager** plugin from Community Applications
 2. **Create a new stack** in Compose Manager
-3. **Copy the contents** of `docker-compose.yml`
+3. **Copy the contents** of `docker-compose.yml` (or use the image from ghcr.io)
 4. **Deploy the stack**
 
 ### Using Unraid Docker Template
@@ -91,7 +97,7 @@ copilot "how do I list docker containers"
 
 ```
 Name: copilot-cli
-Repository: copilot-cli:latest
+Repository: ghcr.io/zeddius1983/copilot-cli-docker:latest
 Console shell command: /bin/bash
 
 Volume Mappings:
@@ -104,13 +110,7 @@ Environment Variables:
 Extra Parameters: -it
 ```
 
-4. **Build the image** first on your Unraid system:
-```bash
-cd /mnt/user/appdata/copilot-cli-docker
-docker build -t copilot-cli:latest .
-```
-
-**Note:** No need to rebuild when changing versions - just update COPILOT_VERSION and restart!
+**Note:** No need to build the image - it's available on GitHub Container Registry!
 
 ## Configuration Options
 

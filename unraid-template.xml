@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <Container version="2">
   <Name>copilot-cli</Name>
-  <Repository>copilot-cli:latest</Repository>
-  <Registry>local</Registry>
+  <Repository>ghcr.io/zeddius1983/copilot-cli-docker:latest</Repository>
+  <Registry>https://ghcr.io</Registry>
   <Network>bridge</Network>
   <MyIP/>
   <Shell>bash</Shell>
@@ -22,12 +22,13 @@
   <DonateLink/>
   <Requires>
     First time setup:
-    1. Build the base image: docker build -t copilot-cli:latest /path/to/dockerfile
-    2. Start the container (Copilot CLI will install automatically)
-    3. Access console and run: copilot
-    4. Use /login command to authenticate (or set GH_TOKEN environment variable)
+    1. Pull the image from GHCR (automatic when starting container)
+    2. Access console and run: copilot
+    3. Use /login command to authenticate (or set GH_TOKEN environment variable)
     
     To change versions: Update COPILOT_VERSION variable and restart container.
+    
+    Note: Image is pre-built and available on GitHub Container Registry.
   </Requires>
   <Config Name="Copilot CLI Version" Target="COPILOT_VERSION" Default="latest" Mode="" Description="GitHub Copilot CLI version to install (e.g., v0.0.410). Leave as 'latest' for the newest version. Changes take effect on container restart." Type="Variable" Display="always" Required="false" Mask="false">latest</Config>
   <Config Name="Copilot CLI Config" Target="/root/.copilot" Default="/mnt/user/appdata/copilot-cli/copilot" Mode="rw" Description="Persistent storage for GitHub Copilot CLI configuration and session data." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/copilot-cli/copilot</Config>
