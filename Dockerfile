@@ -1,4 +1,4 @@
-FROM node:22-alpine
+FROM node:24-alpine
 
 # Install required packages
 RUN apk add --no-cache \
@@ -9,7 +9,7 @@ RUN apk add --no-cache \
     wget \
     && rm -rf /var/cache/apk/*
 
-# Install GitHub Copilot CLI via npm (requires Node.js 22+)
+# Install GitHub Copilot CLI via npm (requires Node.js 24+)
 RUN npm install -g @github/copilot
 
 # Create necessary directories

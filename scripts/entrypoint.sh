@@ -6,8 +6,9 @@ echo "  GitHub Copilot CLI Docker Container"
 echo "================================================"
 
 # Check if Copilot CLI is available
-if github-copilot-cli --version &>/dev/null; then
+if copilot --version &>/dev/null; then
     echo "✓ GitHub Copilot CLI is installed"
+    copilot --version
     
     # Check if authenticated (will prompt on first run)
     echo ""
@@ -20,7 +21,7 @@ fi
 echo ""
 echo "================================================"
 echo "  Available commands:"
-echo "    github-copilot-cli   - Start Copilot session"
+echo "    copilot              - Start Copilot session"
 echo ""
 echo "  Authentication:"
 echo "    Use /login inside the CLI session"

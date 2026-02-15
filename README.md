@@ -35,7 +35,7 @@ docker exec -it copilot-cli /bin/bash
 Once inside the container, run Copilot CLI:
 
 ```bash
-github-copilot-cli
+copilot
 ```
 
 On first launch, you'll be prompted to authenticate. Enter:
@@ -63,10 +63,10 @@ You can authenticate using a fine-grained PAT:
 
 ```bash
 # Interactive session
-github-copilot-cli
+copilot
 
 # Direct question
-github-copilot-cli "how do I list docker containers"
+copilot "how do I list docker containers"
 ```
 
 ## Unraid Installation
@@ -148,7 +148,7 @@ These volumes persist across container restarts, so you only need to authenticat
 
 If authentication is lost, re-run inside the CLI:
 ```bash
-github-copilot-cli
+copilot
 # Then use: /login
 ```
 
@@ -179,7 +179,7 @@ echo "your-token" | gh auth login --with-token
 ### Running Commands Directly
 
 ```bash
-docker exec -it copilot-cli github-copilot-cli "your question"
+docker exec -it copilot-cli copilot "your question"
 ```
 
 ## License

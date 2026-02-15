@@ -24,7 +24,7 @@
     First time setup:
     1. Build the image: docker build -t copilot-cli:latest /path/to/dockerfile
     2. Start the container
-    3. Access console and run: github-copilot-cli
+    3. Access console and run: copilot
     4. Use /login command to authenticate
   </Requires>
   <Config Name="GitHub CLI Config" Target="/root/.config/gh" Default="/mnt/user/appdata/copilot-cli/gh" Mode="rw" Description="Persistent storage for GitHub CLI authentication. Required for maintaining login across container restarts." Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/copilot-cli/gh</Config>
